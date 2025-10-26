@@ -9,6 +9,8 @@
 #define LED_PINS PIN_SPI_MOSI, PIN_SPI_SCK
 /* Number of LEDs in the strip */
 #define LED_COUNT 28
+/* Color correction */
+#define LED_COLOR_CORRECTION TypicalLEDStrip
 
 // Short initialization test of the LEDs
 #define LED_TEST_ENABLE true
@@ -36,6 +38,14 @@ void testAllLEDs() {
   delay(LED_TEST_DELAY);
   allLEDsToColor(CRGB::Blue);
   delay(LED_TEST_DELAY);
+
+  // test through brightness levels
+  for (int b = 0; b <= 255; b += 1) {
+    FastLED.setBrightness(b);
+    allLEDsToColor(CRGB::White);
+    // reach top brightness within 1 second
+    delay((int)((float)1000/255));
+  }
 }
 
 int main()
@@ -44,7 +54,8 @@ int main()
   init();
 
   FastLED.addLeds<LED_CONTROLLER, LED_PINS, LED_COLOR_ORDER>(leds, LED_COUNT);
-  FastLED.setBrightness(64);
+  FastLED.setCorrection(LED_COLOR_CORRECTION);
+  FastLED.setBrightness(128);
 
   // initialization test
   if (LED_TEST_ENABLE)
@@ -53,7 +64,7 @@ int main()
   }
 
   // set LEDs to a nice color
-  allLEDsToColor(CRGB::Orange4);
+  allLEDsToColor(CRGB::FairyLight);
 
   // idle forever
   for (;;) {

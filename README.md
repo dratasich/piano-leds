@@ -20,3 +20,4 @@ pio run --target upload
   pio lib install fastled/FastLED@3.10.2
   ```
 - [FastLED](https://github.com/FastLED/FastLED?tab=readme-ov-file#-documentation--support)
+- [FastLED - Color Correction](https://github.com/FastLED/FastLED/wiki/FastLED-Color-Correction)
